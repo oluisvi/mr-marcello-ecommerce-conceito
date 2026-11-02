@@ -1,4 +1,8 @@
-Oi, tudo bem? Aqui é o Luis, da ServAgency. Preparei uma prévia de como poderia ficar a loja online da MR Marcello. Montei o catálogo com algumas peças que encontrei nas publicações de vocês e três direções visuais diferentes para comparar. A ideia é facilitar a descoberta dos looks e deixar a consulta de tamanho, preço e disponibilidade direto com a equipe pelo WhatsApp. Também incluí uma apresentação da loja, localização e algumas dúvidas frequentes. Vou te mandar a prancha e o link para navegar. Se alguma direção combinar com vocês, me conta qual gostou mais e a gente conversa sobre os próximos ajustes.
+Oi, Marcello! Tudo certo? Aqui é o Luis. Vi que você comentou que hoje divulga as peças pelo Instagram e pelo Status, e que ainda não tinha um catálogo. Fiquei pensando num jeito de deixar essa escolha mais fácil pra quem acompanha a loja, então preparei uma prévia com alguns looks que vi nas publicações de vocês.
+
+Montei três caminhos diferentes pra MR Marcello — queria que você pudesse ver qual combina mais com a identidade da loja. Também deixei a navegação pensada pra pessoa encontrar as peças e chamar vocês pra confirmar tamanho, valor e disponibilidade, sem complicar o atendimento.
+
+Vou te mandar a prancha e o link pra você explorar com calma. Depois me conta, sem compromisso: qual das três opções parece mais a cara da MR Marcello? Se nenhuma estiver no ponto ainda, quero ouvir também o que você mudaria.
 
 Links para acompanhar o áudio:
 Prancha: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/prancha-mr-marcello.png
