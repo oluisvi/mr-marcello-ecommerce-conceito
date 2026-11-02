@@ -30,3 +30,5 @@ Este conceito não processa pagamentos, não reserva estoque e não apresenta in
 - Prancha HTML: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/prancha.html
 - Prancha PNG para compartilhar: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/prancha-mr-marcello.png
 
+
+- Roteiro de áudio: SCRIPT_AUDIO_MR_MARCELLO.md. O usuário fará o envio pessoalmente.
