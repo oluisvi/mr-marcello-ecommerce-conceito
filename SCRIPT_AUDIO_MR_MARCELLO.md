@@ -1,9 +1,8 @@
-Oi, Marcello! Tudo certo? Aqui é o Luis. Vi que você comentou que hoje divulga as peças pelo Instagram e pelo Status, e que ainda não tinha um catálogo. Fiquei pensando num jeito de deixar essa escolha mais fácil pra quem acompanha a loja, então preparei uma prévia com alguns looks que vi nas publicações de vocês.
+Oi, Marcello! Tudo bem? Aqui é o Luis. Lembrei do que você comentou sobre divulgar as peças pelo Instagram e pelo Status, e que ainda não tinha um catálogo. Fiquei pensando em como isso pode ficar puxado quando aumenta o movimento, principalmente em épocas como Black Friday e fim de ano, com mais gente procurando roupa e chamando pra perguntar de peça, tamanho e valor.
 
-Montei três caminhos diferentes pra MR Marcello — queria que você pudesse ver qual combina mais com a identidade da loja. Também deixei a navegação pensada pra pessoa encontrar as peças e chamar vocês pra confirmar tamanho, valor e disponibilidade, sem complicar o atendimento.
+Por isso montei uma prévia de uma vitrine online pra MR Marcello. A pessoa consegue ver os looks com calma pelo celular, encontrar as peças sem ficar procurando PDF ou um monte de foto solta no WhatsApp e, quando tiver interesse, chamar vocês direto pra confirmar os detalhes. Também deixei o Instagram da loja por perto. A ideia é ajudar o cliente a escolher e deixar a conversa com quem vende mais objetiva.
 
-Vou te mandar a prancha e o link pra você explorar com calma. Depois me conta, sem compromisso: qual das três opções parece mais a cara da MR Marcello? Se nenhuma estiver no ponto ainda, quero ouvir também o que você mudaria.
+Fiz três caminhos visuais pra vocês compararem. Vou te mandar a prancha e o link pra navegar. Quando puder olhar, me fala qual deles parece mais a cara da MR Marcello — e se tem alguma coisa que você mudaria. Aí eu consigo entender melhor o que funciona pra vocês.
 
-Links para acompanhar o áudio:
 Prancha: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/prancha-mr-marcello.png
 Site: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/
