@@ -23,3 +23,10 @@
 Valores, grade de tamanhos, cores disponíveis, estoque, venda avulsa, materiais, SKUs, condições de pagamento, entrega/retirada, frete, trocas, horários e aprovação das imagens.
 
 Este conceito não processa pagamentos, não reserva estoque e não apresenta inventário/preço como fato. Validar disponibilidade e condições com a equipe antes de implementar compra real.
+
+## Prancha e publicação
+
+- Site: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/
+- Prancha HTML: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/prancha.html
+- Prancha PNG para compartilhar: https://oluisvi.github.io/mr-marcello-ecommerce-conceito/prancha-mr-marcello.png
+
