@@ -17,7 +17,7 @@
 - Imagens próprias das publicações Instagram da loja, com links de origem nos pontos de uso.
 - A consulta no WhatsApp reúne peças escolhidas e pergunta por tamanhos, cores, disponibilidade e valores atuais. O cliente inicia o envio; nada é enviado automaticamente.
 - Busca de localização no Google Maps usa o endereço publicado. Horários não foram inventados.
-- O projeto inclui agora uma prévia do painel em `?painel=1`, com resumo de interesse, vendas por peça e tela para adicionar/remover produtos de exemplo.
+- O projeto inclui agora uma prévia do painel em `?painel=1`, com resumo de interesse, vendas por peça e tela para adicionar, editar e remover produtos de exemplo.
 - Métricas e novos produtos são fictícios e locais a este navegador. A prévia não tem autenticação, banco de dados, publicação real de catálogo, conexão ao Clarity, ao Instagram, ao WhatsApp nem ao caixa da loja.
 
 ## Não confirmado / antes de operação

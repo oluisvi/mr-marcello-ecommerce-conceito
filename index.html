@@ -73,13 +73,13 @@
           <div class="admin-heading"><div><p class="admin-kicker">MR MARCELLO · RESUMO DA LOJA</p><h1 id="panel-title">A vitrine, em um só lugar.</h1><p>Veja o que chama atenção, quais peças tiveram saída e o que pode precisar de uma nova olhada.</p></div><span class="period-label">PERÍODO DE EXEMPLO · 30 DIAS</span></div>
           <div class="metric-grid" aria-label="Indicadores demonstrativos">
             <article class="metric-card"><span>VISITAS À VITRINE</span><strong>1.284</strong><small><i>↗</i> pessoas explorando os looks</small></article>
-            <article class="metric-card"><span>PEÇAS MAIS VISTAS</span><strong>552</strong><small>visualizações somadas · exemplo</small></article>
-            <article class="metric-card metric-highlight"><span>PEÇAS COM SAÍDA</span><strong>23</strong><small>itens registrados no período</small></article>
+            <article class="metric-card"><span>VISUALIZAÇÕES DE PEÇAS</span><strong data-metric-views>552</strong><small>total no catálogo · exemplo</small></article>
+            <article class="metric-card metric-highlight"><span>UNIDADES VENDIDAS</span><strong data-metric-sold>23</strong><small>registros de demonstração</small></article>
             <article class="metric-card"><span>SEM SAÍDA REGISTRADA</span><strong data-metric-no-sales>02</strong><small>peças para revisar ou destacar</small></article>
           </div>
           <div class="admin-main-grid">
             <article class="admin-card attention-card"><div class="admin-card-heading"><div><p class="admin-kicker">INTERESSE NAS PEÇAS</p><h2>O que chamou atenção.</h2></div><span>VISTAS · EXEMPLO</span></div><div id="interest-chart" class="interest-chart"></div><p class="admin-card-footnote">Na operação real, esse resumo dependeria dos acessos medidos na vitrine.</p></article>
-            <article class="admin-card highlight-card"><p class="admin-kicker">UMA LEITURA SIMPLES</p><h2>Mais procurada<br>nesta amostra.</h2><div class="highlight-product"><img src="images/look-sarja-1.jpg" alt="Peça de referência publicada pela MR Marcello"><div><strong>Camiseta Canelada</strong><span>184 visualizações de exemplo</span></div></div><p>Essa visão ajuda a equipe a notar quais peças despertam interesse e quais talvez precisem de fotos ou destaque atualizado.</p><button class="quiet-link" type="button" data-open-products>VER PEÇAS DO CATÁLOGO ↗</button></article>
+            <article class="admin-card highlight-card"><p class="admin-kicker">UMA LEITURA SIMPLES</p><h2>Mais procurada<br>nesta amostra.</h2><div class="highlight-product"><img id="highlight-product-image" src="images/look-sarja-1.jpg" alt=""><span id="highlight-product-fallback" class="highlight-fallback" hidden>MR</span><div><strong id="highlight-product-name">Camiseta Canelada</strong><span><b id="highlight-product-views">184</b> visualizações de exemplo</span></div></div><p>Essa visão ajuda a equipe a notar quais peças despertam interesse e quais talvez precisem de fotos ou destaque atualizado.</p><button class="quiet-link" type="button" data-open-products>VER PEÇAS DO CATÁLOGO ↗</button></article>
           </div>
           <article class="admin-card admin-products-card"><div class="admin-card-heading"><div><p class="admin-kicker">CATÁLOGO DE EXEMPLO</p><h2>Saída por peça.</h2></div><button type="button" class="admin-add-button" data-add-product>+ ADICIONAR PRODUTO</button></div><div class="product-table-wrap"><table class="admin-product-table"><thead><tr><th>PEÇA</th><th>VISUALIZAÇÕES</th><th>VENDIDAS</th><th>SITUAÇÃO</th></tr></thead><tbody id="overview-product-rows"></tbody></table></div><p class="admin-card-footnote">Nomes aparecem em publicações da loja; os números ao lado são fictícios e servem apenas para mostrar como o painel poderia organizar os dados.</p></article>
         </section>
@@ -87,7 +87,7 @@
         <section id="panel-products" class="admin-view" data-panel-page="products" hidden>
           <div class="admin-heading product-heading"><div><p class="admin-kicker">MR MARCELLO · ORGANIZAÇÃO DA VITRINE</p><h1 id="panel-products-title" tabindex="-1">Produtos e peças.</h1><p>Inclua uma peça na simulação e visualize como o catálogo poderia ser atualizado pela própria equipe.</p></div><button type="button" class="admin-add-button admin-add-main" data-add-product>+ ADICIONAR PRODUTO</button></div>
           <div class="product-management-note"><strong>Você controla a vitrine.</strong><span>Na demonstração, novos itens ficam salvos somente neste navegador. Ainda não são publicados na loja.</span></div>
-          <div class="product-table-wrap product-manage-wrap"><table class="admin-product-table"><thead><tr><th>PEÇA</th><th>VISUALIZAÇÕES</th><th>VENDIDAS</th><th>SITUAÇÃO</th><th></th></tr></thead><tbody id="manage-product-rows"></tbody></table></div>
+          <div class="product-table-wrap product-manage-wrap"><table class="admin-product-table"><thead><tr><th>PEÇA</th><th>VISUALIZAÇÕES</th><th>VENDIDAS</th><th>SITUAÇÃO</th><th>AÇÕES</th></tr></thead><tbody id="manage-product-rows"></tbody></table></div>
           <p class="admin-card-footnote">Os dados de exemplo não são conectados ao Instagram, WhatsApp, Clarity ou sistema de vendas. Uma operação real precisa ser definida com a loja.</p>
         </section>
       </main>
@@ -97,11 +97,12 @@
   <dialog id="add-product-dialog" class="add-product-dialog" aria-labelledby="add-product-title">
     <form id="add-product-form" method="dialog">
       <button id="form-close" class="form-close" type="button" aria-label="Fechar formulário">×</button>
-      <p class="admin-kicker">PAINEL DA LOJA · DEMONSTRAÇÃO</p><h2 id="add-product-title">Adicionar uma peça.</h2><p class="form-intro">Este cadastro de exemplo fica salvo só neste navegador.</p>
+      <input id="demo-product-id" name="id" type="hidden">
+      <p class="admin-kicker">PAINEL DA LOJA · DEMONSTRAÇÃO</p><h2 id="add-product-title">Adicionar uma peça.</h2><p id="product-form-intro" class="form-intro">Este cadastro de exemplo fica salvo só neste navegador.</p>
       <label for="demo-product-name">Nome da peça</label><input id="demo-product-name" name="name" type="text" maxlength="60" placeholder="Ex.: Camisa de linho" required>
       <label for="demo-product-category">Categoria</label><select id="demo-product-category" name="category" required><option value="Camisetas">Camisetas</option><option value="Bermudas">Bermudas</option><option value="Calçados">Calçados</option><option value="Camisas">Camisas</option><option value="Acessórios">Acessórios</option></select>
       <label for="demo-product-note">Nota para a equipe <span>(opcional)</span></label><textarea id="demo-product-note" name="note" maxlength="160" rows="3" placeholder="Ex.: Checar fotos e cores antes de publicar"></textarea>
-      <div class="form-actions"><button type="button" class="form-cancel" id="cancel-add-product">Cancelar</button><button type="submit" class="admin-add-button">ADICIONAR À DEMONSTRAÇÃO ↗</button></div>
+      <div class="form-actions"><button type="button" class="form-cancel" id="cancel-add-product">Cancelar</button><button id="product-form-submit" type="submit" class="admin-add-button">ADICIONAR À DEMONSTRAÇÃO ↗</button></div>
     </form>
   </dialog>
   <div id="admin-toast" class="admin-toast" role="status" aria-live="polite"></div>

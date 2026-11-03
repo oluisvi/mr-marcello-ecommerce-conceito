@@ -11,11 +11,11 @@ const products = [
   { id: "bermuda-alfaiataria", name: "Bermuda Alfaiataria Marinho", category: "bottoms", image: "images/look-marinho.jpg", alt: "Look MR Marcello com bermuda de alfaiataria marinho e camiseta", source: "https://www.instagram.com/mrmarcello_/reel/DfH0HmzhBGS/", tag: "NO LOOK" }
 ];
 const sampleProductStats = [
-  { name: "Camiseta Canelada", category: "Camisetas", views: 184, sold: 12 },
-  { name: "Bermuda Sarja", category: "Bermudas", views: 136, sold: 8 },
-  { name: "Bermuda Alfaiataria Marinho", category: "Bermudas", views: 92, sold: 0 },
-  { name: "Tênis Slip On", category: "Calçados", views: 76, sold: 3 },
-  { name: "Tênis Bege", category: "Calçados", views: 64, sold: 0 }
+  { id: "sample-camiseta-canelada", name: "Camiseta Canelada", category: "Camisetas", views: 184, sold: 12, image: "images/look-sarja-1.jpg", note: "" },
+  { id: "sample-bermuda-sarja", name: "Bermuda Sarja", category: "Bermudas", views: 136, sold: 8, image: "images/look-sarja-2.jpg", note: "" },
+  { id: "sample-bermuda-alfaiataria", name: "Bermuda Alfaiataria Marinho", category: "Bermudas", views: 92, sold: 0, image: "images/look-marinho.jpg", note: "" },
+  { id: "sample-tenis-slip-on", name: "Tênis Slip On", category: "Calçados", views: 76, sold: 3, image: "images/look-sarja-1.jpg", note: "" },
+  { id: "sample-tenis-bege", name: "Tênis Bege", category: "Calçados", views: 64, sold: 0, image: "images/look-marinho.jpg", note: "" }
 ];
 const state = { category: "all", favoritesOnly: false, bag: new Set(), query: "" };
 const $ = (selector) => document.querySelector(selector);
@@ -107,37 +107,69 @@ let toastTimer;
 function readDemoProducts() {
   try {
     const stored = JSON.parse(localStorage.getItem(demoStorageKey) || "[]");
-    return Array.isArray(stored) ? stored.filter((item) => item && typeof item.id === "string" && typeof item.name === "string").slice(0, 40) : [];
-  } catch { return []; }
+    const validItems = (items) => items.filter((item) => item && typeof item.id === "string" && typeof item.name === "string").map((item) => ({
+      ...item,
+      name: String(item.name).slice(0, 60),
+      category: String(item.category || "Outros").slice(0, 30),
+      note: String(item.note || "").slice(0, 160),
+      views: Number.isFinite(Number(item.views)) ? Math.max(0, Number(item.views)) : 0,
+      sold: Number.isFinite(Number(item.sold)) ? Math.max(0, Number(item.sold)) : 0,
+      image: ["images/look-sarja-1.jpg", "images/look-sarja-2.jpg", "images/look-marinho.jpg"].includes(item.image) ? item.image : "",
+      demo: Boolean(item.demo)
+    })).slice(0, 40);
+    if (stored && !Array.isArray(stored) && stored.version === 1 && Array.isArray(stored.products)) return validItems(stored.products);
+    if (Array.isArray(stored) && stored.length) {
+      const legacy = validItems(stored).map((item) => ({ ...item, demo: true }));
+      return [...sampleProductStats.map((item) => ({ ...item, demo: false })), ...legacy].slice(0, 40);
+    }
+    return sampleProductStats.map((item) => ({ ...item, demo: false }));
+  } catch { return sampleProductStats.map((item) => ({ ...item, demo: false })); }
 }
 function saveDemoProducts() {
-  try { localStorage.setItem(demoStorageKey, JSON.stringify(demoProducts)); } catch { /* The preview remains usable in memory. */ }
+  try { localStorage.setItem(demoStorageKey, JSON.stringify({ version: 1, products: demoProducts })); } catch { /* The preview remains usable in memory. */ }
 }
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[character]);
 }
-function demoRows(items, canRemove = false) {
-  const examples = items.map((item) => ({ ...item, demo: false }));
-  const additions = demoProducts.map((item) => ({ ...item, views: 0, sold: 0, demo: true }));
-  const rows = [...examples, ...additions];
-  if (!rows.length) return `<tr><td colspan="${canRemove ? 5 : 4}" class="admin-empty">Nenhum produto na demonstração ainda.</td></tr>`;
+function demoRows(rows = demoProducts, canManage = false) {
+  if (!rows.length) return `<tr><td colspan="${canManage ? 5 : 4}" class="admin-empty">Nenhuma peça na simulação. Adicione um produto para começar.</td></tr>`;
   return rows.map((item) => `<tr>
-    <td><span class="product-cell"><i class="product-row-mark" aria-hidden="true">${item.demo ? "+" : "MR"}</i><span><strong>${escapeHTML(item.name)}</strong><small>${escapeHTML(item.category)}${item.demo ? ` · EXEMPLO ADICIONADO${item.note ? ` · ${escapeHTML(item.note)}` : ""}` : " · REFERÊNCIA DO CATÁLOGO"}</small></span></span></td>
+    <td><span class="product-cell"><i class="product-row-mark" aria-hidden="true">${item.demo ? "+" : "MR"}</i><span><strong>${escapeHTML(item.name)}</strong><small>${escapeHTML(item.category)}${item.demo ? ` · ADICIONADO NA SIMULAÇÃO${item.note ? ` · ${escapeHTML(item.note)}` : ""}` : " · REFERÊNCIA DO CATÁLOGO"}</small></span></span></td>
     <td>${item.demo ? "—" : item.views}</td><td>${item.demo ? "—" : item.sold}</td>
-    <td><span class="status-tag ${item.demo ? "status-new" : item.sold ? "status-active" : "status-review"}">${item.demo ? "RASCUNHO DE EXEMPLO" : item.sold ? "COM SAÍDA · EXEMPLO" : "SEM SAÍDA · EXEMPLO"}</span></td>
-    ${canRemove ? `<td>${item.demo ? `<button type="button" class="remove-demo-product" data-demo-remove="${escapeHTML(item.id)}">REMOVER</button>` : `<span class="table-dash" aria-hidden="true">·</span>`}</td>` : ""}
+    <td><span class="status-tag ${item.demo ? "status-new" : item.sold ? "status-active" : "status-review"}">${item.demo ? "NOVO · SEM DADOS" : item.sold ? "COM SAÍDA · EXEMPLO" : "SEM SAÍDA · EXEMPLO"}</span></td>
+    ${canManage ? `<td><div class="table-actions"><button type="button" class="edit-demo-product" data-demo-edit="${escapeHTML(item.id)}">EDITAR</button><button type="button" class="remove-demo-product" data-demo-remove="${escapeHTML(item.id)}">REMOVER</button></div></td>` : ""}
   </tr>`).join("");
 }
 function renderDemoPanel() {
-  const baseCount = sampleProductStats.length;
-  const count = baseCount + demoProducts.length;
-  const noSales = sampleProductStats.filter((item) => item.sold === 0).length + demoProducts.length;
+  const count = demoProducts.length;
+  const noSales = demoProducts.filter((item) => item.sold === 0).length;
+  const views = demoProducts.reduce((total, item) => total + item.views, 0);
+  const sold = demoProducts.reduce((total, item) => total + item.sold, 0);
   $("#admin-product-count").textContent = String(count).padStart(2, "0");
   $("[data-metric-no-sales]").textContent = String(noSales).padStart(2, "0");
-  $("#overview-product-rows").innerHTML = demoRows(sampleProductStats);
-  $("#manage-product-rows").innerHTML = demoRows(sampleProductStats, true);
-  const maxViews = Math.max(...sampleProductStats.map((item) => item.views));
-  $("#interest-chart").innerHTML = sampleProductStats.slice(0, 4).map((item) => `<div class="interest-row"><span>${escapeHTML(item.name)}</span><div class="interest-track"><i style="--bar-width:${Math.round(item.views / maxViews * 100)}%"></i></div><b>${item.views}</b></div>`).join("");
+  $("[data-metric-views]").textContent = String(views);
+  $("[data-metric-sold]").textContent = String(sold);
+  $("#overview-product-rows").innerHTML = demoRows(demoProducts);
+  $("#manage-product-rows").innerHTML = demoRows(demoProducts, true);
+  const ranked = [...demoProducts].sort((a, b) => b.views - a.views);
+  const top = ranked[0];
+  if (top) {
+    $("#highlight-product-name").textContent = top.name;
+    $("#highlight-product-views").textContent = String(top.views);
+    const image = $("#highlight-product-image");
+    image.hidden = !top.image;
+    image.src = top.image || "";
+    image.alt = top.image ? `Imagem de referência da peça ${top.name}` : "";
+    $("#highlight-product-fallback").hidden = Boolean(top.image);
+  } else {
+    $("#highlight-product-name").textContent = "Sem peças na lista";
+    $("#highlight-product-views").textContent = "0";
+    $("#highlight-product-image").hidden = true;
+    $("#highlight-product-fallback").hidden = false;
+  }
+  const chartItems = ranked.filter((item) => item.views > 0).slice(0, 4);
+  const maxViews = chartItems[0]?.views || 0;
+  $("#interest-chart").innerHTML = chartItems.length ? chartItems.map((item) => `<div class="interest-row"><span>${escapeHTML(item.name)}</span><div class="interest-track"><i style="--bar-width:${Math.round(item.views / maxViews * 100)}%"></i></div><b>${item.views}</b></div>`).join("") : `<p class="chart-empty">Adicione visualizações aos dados de exemplo para comparar as peças.</p>`;
 }
 function showAdminToast(message) {
   const toast = $("#admin-toast");
@@ -145,6 +177,24 @@ function showAdminToast(message) {
   toast.classList.add("is-visible");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3200);
+}
+function openProductForm(productId = "") {
+  const form = $("#add-product-form");
+  form.reset();
+  const item = productId ? demoProducts.find((product) => product.id === productId) : null;
+  $("#demo-product-id").value = item?.id || "";
+  $("#add-product-title").textContent = item ? "Editar uma peça." : "Adicionar uma peça.";
+  $("#product-form-intro").textContent = item
+    ? "Altere os detalhes deste exemplo. A mudança fica só neste navegador."
+    : "Este cadastro de exemplo fica salvo só neste navegador.";
+  $("#product-form-submit").textContent = item ? "SALVAR ALTERAÇÕES ↗" : "ADICIONAR À DEMONSTRAÇÃO ↗";
+  if (item) {
+    $("#demo-product-name").value = item.name;
+    $("#demo-product-category").value = item.category;
+    $("#demo-product-note").value = item.note || "";
+  }
+  addDialog.showModal();
+  $("#demo-product-name").focus();
 }
 function setAdminPage(name) {
   const page = name === "products" ? "products" : "overview";
@@ -187,11 +237,7 @@ $("#open-panel").addEventListener("click", () => openAdminPanel());
 $("#close-panel").addEventListener("click", closeAdminPanel);
 $$('[data-panel-view]').forEach((button) => button.addEventListener("click", () => setAdminPage(button.dataset.panelView)));
 $$('[data-open-products]').forEach((button) => button.addEventListener("click", () => setAdminPage("products")));
-$$('[data-add-product]').forEach((button) => button.addEventListener("click", () => {
-  $("#add-product-form").reset();
-  addDialog.showModal();
-  $("#demo-product-name").focus();
-}));
+$$('[data-add-product]').forEach((button) => button.addEventListener("click", () => openProductForm()));
 $("#form-close").addEventListener("click", () => addDialog.close());
 $("#cancel-add-product").addEventListener("click", () => addDialog.close());
 $("#add-product-form").addEventListener("submit", (event) => {
@@ -201,21 +247,32 @@ $("#add-product-form").addEventListener("submit", (event) => {
   const category = String(form.get("category") || "").trim();
   const note = String(form.get("note") || "").trim();
   if (!name || !category) return;
-  demoProducts.unshift({ id: `demo-${Date.now()}`, name, category, note });
+  const editingId = String(form.get("id") || "");
+  if (editingId) {
+    const existing = demoProducts.find((item) => item.id === editingId);
+    if (!existing) return;
+    demoProducts = demoProducts.map((item) => item.id === editingId ? { ...item, name, category, note } : item);
+  } else {
+    demoProducts.unshift({ id: `demo-${Date.now()}`, name, category, note, views: 0, sold: 0, image: "", demo: true });
+  }
   demoProducts = demoProducts.slice(0, 40);
   saveDemoProducts();
   renderDemoPanel();
   addDialog.close();
   setAdminPage("products");
-  showAdminToast(`${name} entrou na demonstração. O produto não foi publicado.`);
+  showAdminToast(editingId ? `${name} foi atualizado na demonstração.` : `${name} entrou na demonstração. O produto não foi publicado.`);
 });
 $("#manage-product-rows").addEventListener("click", (event) => {
-  const button = event.target.closest("[data-demo-remove]");
-  if (!button) return;
-  demoProducts = demoProducts.filter((item) => item.id !== button.dataset.demoRemove);
+  const editButton = event.target.closest("[data-demo-edit]");
+  if (editButton) { openProductForm(editButton.dataset.demoEdit); return; }
+  const removeButton = event.target.closest("[data-demo-remove]");
+  if (!removeButton) return;
+  const item = demoProducts.find((product) => product.id === removeButton.dataset.demoRemove);
+  if (!item || !window.confirm(`Remover ${item.name} desta simulação?`)) return;
+  demoProducts = demoProducts.filter((product) => product.id !== item.id);
   saveDemoProducts();
   renderDemoPanel();
-  showAdminToast("Produto removido da demonstração.");
+  showAdminToast(`${item.name} foi removido da demonstração.`);
 });
 addDialog.addEventListener("click", (event) => { if (event.target === addDialog) addDialog.close(); });
 if (new URLSearchParams(location.search).get("painel") === "1") openAdminPanel(false);
