@@ -17,12 +17,21 @@
 - Imagens próprias das publicações Instagram da loja, com links de origem nos pontos de uso.
 - A consulta no WhatsApp reúne peças escolhidas e pergunta por tamanhos, cores, disponibilidade e valores atuais. O cliente inicia o envio; nada é enviado automaticamente.
 - Busca de localização no Google Maps usa o endereço publicado. Horários não foram inventados.
+- O projeto inclui agora uma prévia do painel em `?painel=1`, com resumo de interesse, vendas por peça e tela para adicionar/remover produtos de exemplo.
+- Métricas e novos produtos são fictícios e locais a este navegador. A prévia não tem autenticação, banco de dados, publicação real de catálogo, conexão ao Clarity, ao Instagram, ao WhatsApp nem ao caixa da loja.
 
 ## Não confirmado / antes de operação
 
 Valores, grade de tamanhos, cores disponíveis, estoque, venda avulsa, materiais, SKUs, condições de pagamento, entrega/retirada, frete, trocas, horários e aprovação das imagens.
 
 Este conceito não processa pagamentos, não reserva estoque e não apresenta inventário/preço como fato. Validar disponibilidade e condições com a equipe antes de implementar compra real.
+
+## Painel demonstrativo — 03/11/2026
+
+O painel foi incluído para explicar, em termos visuais, como a equipe poderia cadastrar peças e acompanhar visualizações e saídas. Os dados mostrados são inventados; vendas em loja física ou pelo WhatsApp só apareceriam numa solução real se fossem registradas ou integradas a uma fonte de dados confirmada. Não foi instalado nem configurado Clarity.
+
+- Acesso à prévia no site publicado: `https://oluisvi.github.io/mr-marcello-ecommerce-conceito/?painel=1`
+- Mensagem de follow-up preparada em [[FOLLOW_UP_MR_MARCELLO.md]], mas não enviada, pois o controle da sessão autenticada do WhatsApp Web não ficou disponível.
 
 ## Prancha e publicação
 
